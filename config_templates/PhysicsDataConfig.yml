@@ -1,0 +1,82 @@
+## Config.yml
+# YAML Configuration file for deep learning training on an LSM dataset
+#
+# What is YAML?! A human and machine readable language
+#   https://en.wikipedia.org/wiki/YAML
+#
+# This file should be placed in the parent directory of each dataset
+#   eg:
+#     <path>/<date>_<experiement>/<sample>/raw/
+#                                      .../Config.yml
+#
+# Suggest editing this using 'sublime text' or 'notepad++', or any other
+#   text editor with YAML syntax highlighting!
+
+
+# **********************************************************************
+
+# Date of processing
+#   This will be used to append to output folder names for record keeping
+#   Further, this will allow multiple processing runs to be saved alongside 
+#   each other
+#   If more than one processing run is to be performed in one day, append 
+#   an index to the end (e.g., 20200310_1, 20200310_2, etc)
+date: 20200113
+
+# Processing chain
+#   Generate data based on real or simulated data
+
+# Use real or simulated data for pair training
+data: sim # sim or real or both
+data_dir:  # dir of real reference data (if needed)
+
+# Configure LSM PSF for low and high resolution
+psfconfigLR:
+  illumination:
+    beam: airy  # gaussian, airy, bessel
+    w0: 1.53e-3
+    gamma: 1  # alpha parameter for airy
+    f: 13e-3
+    # rr: 1.1e-3  # ring radius for bessel
+  detection:
+    wg: 2.1e-6
+
+psfconfigHR:
+  illumination:
+    beam: gaussian
+    wg: 1.3e-6
+  detection:
+    wg: 1.3e-6  
+
+# Psf rotation angle (factor of PI)
+theta: -1/4
+
+# Image properties
+img_size_xz: [64, 64]  # image size in pixels
+pix_spacing: 0.85e-6  # Image pixel size in m
+
+# Simulation properties
+sim:
+  type: bead, speckle  # bead, speckle
+  n_images: 512  # number of images to simulate
+  n_val: 64  # number of images to use for validation
+  n_scatterers_min_max: [5, 40]  # range of number of scatteres to simulate for sparse images
+  # max distance where PSF contributes to signal (Smaller = faster code)
+  psfDistMaxLR: 25e-6
+  psfDistMaxHR: 10e-6
+  # speckle properties
+  speckle:
+    hf_size_pix: 1.1 # high frequency speckle size
+    lf_size_pix: 0.1 # low frequency speckle size
+    weight: 0.01 # mix ratio of hf to lf
+
+# Noise properties
+noise:
+  add_noise_to_HR: 0  # real data only
+  type: gaussian, speckle  # gaussian, speckle, snp
+  gaussian_mu: 0
+  gaussian_std: 0.01  # std of gauss noise
+  saltpepper: 0.005
+  # Stochastic random variations for training
+  noise_var: 0.2
+  theta_var: 0

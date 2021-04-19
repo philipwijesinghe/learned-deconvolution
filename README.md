@@ -4,6 +4,7 @@
 This repository contains code for learned deconvolution using physics priors for structured light-sheet microscopy.
 
 This work was first presented in:
+
 *Wijesinghe P., Corsetti S., Chow D.J.X., Sakata S., Dunning K.R., Dholakia K.* 
 **Learned deconvolution using physics priors for structured light-sheet microscopy** 
 (PREPRINT) 2021
@@ -45,6 +46,8 @@ To train the network, the user creates a folder containing a ```TrainConfig.yml`
 The configuration file must also include at least one path to simulated image pairs and at least one path to a folder containing real microscopy images. 
 Real images must be 64x64 pixel PNG images.
 Network training is initialised using ```train_physics_model.py```, and will populate the folder with training images to visualise training progress, and will perodically save the model in the ```/saved_model``` subfolder.
+
+Network training without real microscopy images can be performed using ```train_simulation_model.py```.
 
 
 ### Inference

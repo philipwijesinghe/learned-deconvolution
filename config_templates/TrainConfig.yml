@@ -1,0 +1,54 @@
+## Config.yml
+# YAML Configuration file for deep learning training on an LSM dataset
+#
+# What is YAML?! A human and machine readable language
+#   https://en.wikipedia.org/wiki/YAML
+#
+# This file should be placed in the parent directory of each dataset
+#   eg:
+#     <path>/<date>_<experiement>/<sample>/raw/
+#                                      .../Config.yml
+#
+# Suggest editing this using 'sublime text' or 'notepad++', or any other
+#   text editor with YAML syntax highlighting!
+
+
+# **********************************************************************
+
+# Directories
+#   Current implementation: parent directory of this file will be used as 
+#   a default
+
+# Physics data directories
+phys_dirs: E:\LSM-deeplearning\PhysicsData\20210113_Airy_g1\paired_data
+
+# Real data for saliency
+real_dirs: 
+  E:\LSM-deeplearning\20201008_BlastocystJC1_Processed\BlastocystJC1\150Radius-200exposure-0.5step-100mW-alpha1_1\Train-20201015
+
+# Data partitioning
+n_val: 64  # number of images to use from the paired data for validation
+
+# Network properties (uncomment to modify)
+# epoch: 0
+# n_epochs: 301
+# batch_size: 8
+# lrG: 0.0001
+# lrD: 0.0004
+# b1: 0.5
+# b2: 0.999
+# lambda_pixel: 30
+# beta_pixel: 0.0001
+# gamma_pixel: 1
+# decay_epoch: 100
+# n_cpu: 0
+# img_size: 64
+# channels: 1
+# sample_interval: 500
+# checkpoint_interval: 100
+# spectral_norm: False
+# dual_D: True
+# smooth_labels: True
+# model: resnet
+# scheduler: False
+# loss_decay: False
