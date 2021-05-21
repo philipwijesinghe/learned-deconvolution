@@ -1,13 +1,13 @@
-## Config.yml
-# YAML Configuration file for deep learning training on an LSM dataset
+## PhysicsDataConfig.yml
+# YAML Configuration file for preparing paired simulated LSM data
 #
 # What is YAML?! A human and machine readable language
 #   https://en.wikipedia.org/wiki/YAML
 #
-# This file should be placed in the parent directory of each dataset
+# This file should be placed in a manually created folder
 #   eg:
-#     <path>/<date>_<experiement>/<sample>/raw/
-#                                      .../Config.yml
+#     <path>/.
+#        .../PhysicsDataConfig.yml
 #
 # Suggest editing this using 'sublime text' or 'notepad++', or any other
 #   text editor with YAML syntax highlighting!
@@ -31,15 +31,16 @@ data: sim # sim or real or both
 data_dir:  # dir of real reference data (if needed)
 
 # Configure LSM PSF for low and high resolution
+# Parameters are based on the supporting pdfs in the beams/ directory 
 psfconfigLR:
   illumination:
     beam: airy  # gaussian, airy, bessel
     w0: 1.53e-3
     gamma: 1  # alpha parameter for airy
-    f: 13e-3
+    f: 13e-3 # focal length
     # rr: 1.1e-3  # ring radius for bessel
   detection:
-    wg: 2.1e-6
+    wg: 2.1e-6 # spot size at focus
 
 psfconfigHR:
   illumination:
@@ -53,7 +54,7 @@ theta: -1/4
 
 # Image properties
 img_size_xz: [64, 64]  # image size in pixels
-pix_spacing: 0.85e-6  # Image pixel size in m
+pix_spacing: 0.85e-6  # image pixel size in m
 
 # Simulation properties
 sim:

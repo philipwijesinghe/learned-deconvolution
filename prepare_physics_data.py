@@ -19,6 +19,7 @@ from deeplearn.prepare_data import generate_physics_data
 # =============================================================================
 # USER INPUT
 # =============================================================================
+# Path to a folder (or list of folders) that contains a PhysicsDataConfig.yml file
 in_dirs = [r'E:\LSM-deeplearning\PhysicsData\20210323_Airy_g0p5_finer_speckle']
 
 

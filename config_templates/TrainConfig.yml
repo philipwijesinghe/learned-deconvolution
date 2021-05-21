@@ -1,13 +1,13 @@
-## Config.yml
+## TrainConfig.yml
 # YAML Configuration file for deep learning training on an LSM dataset
 #
 # What is YAML?! A human and machine readable language
 #   https://en.wikipedia.org/wiki/YAML
 #
-# This file should be placed in the parent directory of each dataset
+# This file should be placed in a manually created folder
 #   eg:
-#     <path>/<date>_<experiement>/<sample>/raw/
-#                                      .../Config.yml
+#     <path>/.
+#        .../TrainConfig.yml
 #
 # Suggest editing this using 'sublime text' or 'notepad++', or any other
 #   text editor with YAML syntax highlighting!
@@ -20,11 +20,10 @@
 #   a default
 
 # Physics data directories
-phys_dirs: E:\LSM-deeplearning\PhysicsData\20210113_Airy_g1\paired_data
+phys_dirs: E:\PhysicsData\20210113_Airy_g1\paired_data
 
 # Real data for saliency
-real_dirs: 
-  E:\LSM-deeplearning\20201008_BlastocystJC1_Processed\BlastocystJC1\150Radius-200exposure-0.5step-100mW-alpha1_1\Train-20201015
+real_dirs: E:\BlastocystJC1\Train-20201015
 
 # Data partitioning
 n_val: 64  # number of images to use from the paired data for validation
