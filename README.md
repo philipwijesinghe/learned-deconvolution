@@ -109,9 +109,10 @@ Code to simulate LSM images and PSFs
 (Installation of all packages may take several hours.)
 
 Deep learning uses **PyTorch**.
-We have tested our code on Windows 10 using python 3.9 within the Anaconda environment.
-As an example, Anaconda was installed and included in the Windows 10 PATH.
-Thus, we can create a fresh Anacoda (python 3.9) environment (called 'DD' for Deep Deconvolution) using the command prompt.
+We have tested our code on Windows 10 and python 3.9 using the Anaconda environment.
+
+Here, Anaconda was installed and included in the Windows 10 PATH.
+We can create a fresh Anacoda (python 3.9) environment (called 'DD' for Deep Deconvolution) using the command prompt.
 
 ```
 conda create --name DD python=3.9
@@ -135,9 +136,9 @@ We make use of additional libraries:
 conda install matplotlib scipy pyyaml
 ```
 
-This should provide the necessary environment for PyTorch with CUDA
+This should provide the necessary environment for PyTorch with CUDA.
 
-GPU Test should return ```true``` if using a compatible graphics card
+In python, the GPU Test should return ```true``` if using a compatible graphics card.
 
 ```python
 import torch
