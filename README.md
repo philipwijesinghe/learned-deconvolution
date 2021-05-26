@@ -145,5 +145,10 @@ torch.cuda.is_available()
 ```
 
 
+### Package Version
+
+The full package listing, including the version information, is included in ```env.md```
+
+
 
 
