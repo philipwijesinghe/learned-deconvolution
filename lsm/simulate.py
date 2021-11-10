@@ -292,8 +292,9 @@ def simulate_lsm_convolution(config, psfconfigLR, psfconfigHR=None,
     if psfconfigHR:
         dir_ = create_dirs(config)
     else:
-        dir_ = config['dir'] + '\\' + config['date'] + '\\process'
-        os.makedirs(dir_, exist_ok=True)
+        dir_ = create_dirs(config)
+        # dir_ = config['dir'] + '\\' + config['date'] + '\\process'
+        # os.makedirs(dir_, exist_ok=True)
 
     last_n = find_last_image_no(dir_)
 
@@ -307,7 +308,7 @@ def simulate_lsm_convolution(config, psfconfigLR, psfconfigHR=None,
     elif data_mode == 'real':
         file_list = [f for f in glob.glob(config['data_dir'] + "\\*.png")]
         n_images = len(file_list)
-        n_val = config['n_val_real']
+        n_val = n_images  # config['n_val_real']
         rperm = np.random.permutation(n_images)
         rperm = rperm[:n_val]
         # TODO: LIBTIFF Error - critical - cannot load TIF under windows
@@ -369,8 +370,10 @@ def simulate_lsm_convolution(config, psfconfigLR, psfconfigHR=None,
             save_image(config['dir'], None, last_n + 1 + ni,
                        imageLR_xz=imageLR, imageHR_xz=imageHR, mode='paired')
         else:
-            save_image(config['dir'], config['date'], last_n + 1 + ni,
-                       imageLR_xz=imageLR, imageHR_xz=imageHR, mode='process')
+            save_image(config['dir'], None, last_n + 1 + ni,
+                       imageLR_xz=imageLR, imageHR_xz=imageHR, mode='paired')
+            # save_image(config['dir'], config['date'], last_n + 1 + ni,
+            #            imageLR_xz=imageLR, imageHR_xz=imageHR, mode='process')
 
         # save_image(config['dir'], config['date'], last_n+1+ni,
         #             imageLR_xz=imageHR, imageHR_xz=None, mode='reference')
