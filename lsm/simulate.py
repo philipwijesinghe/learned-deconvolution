@@ -28,7 +28,7 @@ from fileio.imageio import save_image
 # =============================================================================
 # FUNCTIONS
 # =============================================================================
-def scattering_psf(xv, zv, psfconfig, psfdistmax):
+def scattering_psf(xv, zv, psfconfig, psfdistmax, y=None):
     """
     Calculates the detected psf of a single scatterer located at (x,z) = (0,0)
     evaluated at a set of coordinates given in xv and zv.
@@ -53,10 +53,16 @@ def scattering_psf(xv, zv, psfconfig, psfdistmax):
     """
     # tic = time.perf_counter()
     scattering_signal = np.zeros(xv.shape)
-    for pi in range(len(xv)):
-        if xv[pi]**2 + zv[pi]**2 < psfdistmax**2:
-            scattering_signal[pi] = gen_psf_vect(np.array([xv[pi]]), np.array([zv[pi]]),
-                                                 lambda0=488e-9, psfconfig=psfconfig)
+    if y is None:
+        for pi in range(len(xv)):
+            if xv[pi]**2 + zv[pi]**2 < psfdistmax**2:
+                scattering_signal[pi] = gen_psf_vect(np.array([xv[pi]]), np.array([zv[pi]]),
+                                                     lambda0=488e-9, psfconfig=psfconfig)
+    else:
+        for pi in range(len(xv)):
+            if xv[pi]**2 + zv[pi]**2 + y[pi]**2 < psfdistmax**2:
+                scattering_signal[pi] = gen_psf_vect(np.array([xv[pi]]), np.array([zv[pi]]),
+                                                     y=np.array([y[pi]]), lambda0=488e-9, psfconfig=psfconfig)
     # toc = time.perf_counter()
     # print(f"Method 1 {toc - tic:0.4f} seconds")
     return scattering_signal
@@ -84,6 +90,44 @@ def gen_psf(config, psfconfigLR, psfconfigHR=None):
 
     psfLR = scattering_psf(pxvr, pzvr, psfconfigLR, sim_conf['psfDistMaxLR'])
     psfLR = psfLR.reshape((npixpsf * 2 + 1, npixpsf * 2 + 1))
+    if psfconfigHR:
+        psfHR = scattering_psf(pxvr, pzvr, psfconfigHR, sim_conf['psfDistMaxHR'])
+        psfHR = psfHR.reshape((npixpsf * 2 + 1, npixpsf * 2 + 1))
+    else:
+        psfHR = None
+
+    return psfLR, psfHR
+
+
+def gen_psf_3d(config, psfconfigLR, psfconfigHR=None):
+    # Generate psf images for convolution
+    sim_conf = config['sim']
+    noise_conf = config['noise']
+
+    # Create PSFs
+    npixpsf = int(sim_conf['psfDistMaxLR'] // config['pix_spacing'])
+    xp = np.linspace(-npixpsf * config['pix_spacing'],
+                     npixpsf * config['pix_spacing'],
+                     npixpsf * 2 + 1)
+    xpr, zpr = np.meshgrid(xp, xp, sparse=False, indexing='ij')
+
+    # rotation via rotation matrix
+    pxvr, pzvr = rotate_psf(
+        xpr, zpr, config['theta'], theta_var=noise_conf['theta_var']
+    )
+    # linearize vectors
+    pxvr = pxvr.flatten()
+    pzvr = pzvr.flatten()
+    # pyvr = ypr.flatten()
+
+    yp = xp
+    psfLR = np.zeros([npixpsf * 2 + 1, npixpsf * 2 + 1, npixpsf * 2 + 1])
+    for yi in range(len(yp)):
+        yvr = np.ones(pzvr.shape) * yp[yi]
+        psfLR2d = scattering_psf(pxvr, pzvr, psfconfigLR, sim_conf['psfDistMaxLR'], y=yvr)
+        psfLR2d = psfLR2d.reshape((npixpsf * 2 + 1, npixpsf * 2 + 1))
+        psfLR[:, :, yi] = psfLR2d
+
     if psfconfigHR:
         psfHR = scattering_psf(pxvr, pzvr, psfconfigHR, sim_conf['psfDistMaxHR'])
         psfHR = psfHR.reshape((npixpsf * 2 + 1, npixpsf * 2 + 1))

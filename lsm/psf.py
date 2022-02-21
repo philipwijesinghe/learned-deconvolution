@@ -132,7 +132,7 @@ def gen_psf(x, z, lambda0=488e-9, psfconfig=PSFConfig(), **kwargs):
     return intensity
 
 
-def gen_psf_vect(x, z, lambda0=488e-9, psfconfig=PSFConfig(), **kwargs):
+def gen_psf_vect(x, z, y=0, lambda0=488e-9, psfconfig=PSFConfig(), **kwargs):
     """Generates an LSM PSF (intensity) at (x,z) vectors
 
     I = gen_psf(r, z, lambda0, psfconfig)
@@ -186,8 +186,9 @@ def gen_psf_vect(x, z, lambda0=488e-9, psfconfig=PSFConfig(), **kwargs):
         print('Undefined beam type')
 
     # Detection PSF
+    r = (x**2 + y**2)**(1/2)
     Ed = gen_gaussian_vect(
-        r=x, z=z, lambda0=lambda0,
+        r=r, z=z, lambda0=lambda0,
         wg=psfconfig.config['detection']['wg']
     )
     Ed = Ed.transpose()

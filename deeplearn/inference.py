@@ -59,7 +59,7 @@ def process_widefield_stack(in_dir, model_dir, conf):
     # Main
     # =============================================================================
     parent_dir = os.path.split(in_dir)[0]
-    save_dir = os.path.join(parent_dir, "Processed-dump")
+    save_dir = os.path.join(parent_dir, "Processed")
     os.makedirs(save_dir, exist_ok=True)
 
     generator_dir = os.path.join(
