@@ -7,7 +7,7 @@ This work was first presented in:
 
 *Wijesinghe P., Corsetti S., Chow D.J.X., Sakata S., Dunning K.R., Dholakia K.* 
 **Learned deconvolution using physics priors for light-sheet microscopy with propagation-invariant beams** 
-(PREPRINT) 2021
+(PREPRINT) 2021 [https://doi.org/10.1101/2021.05.26.445797](https://doi.org/10.1101/2021.05.26.445797)
 
 
 
