@@ -1,12 +1,12 @@
 
 # Learned deconvolution using physics priors
 
-This repository contains code for learned deconvolution using physics priors for structured light-sheet microscopy.
+This repository contains code for learned deconvolution using physics priors for light-sheet microscopy with propagation-invariant beams.
 
 This work was first presented in:
 
 *Wijesinghe P., Corsetti S., Chow D.J.X., Sakata S., Dunning K.R., Dholakia K.* 
-**Learned deconvolution using physics priors for structured light-sheet microscopy** 
+**Learned deconvolution using physics priors for light-sheet microscopy with propagation-invariant beams** 
 (PREPRINT) 2021
 
 
@@ -27,6 +27,11 @@ This code is separated into several functionalities.
 ### Acknowledgements
 
 We acknowledge Erik Linder-Noren's [implementations of GANs in PyTorch](https://github.com/eriklindernoren/PyTorch-GAN) that instantiated the code developed in this project.
+
+
+### License
+
+This project is licensed under the terms of the MIT license. See LICENSE.md
 
 
 
