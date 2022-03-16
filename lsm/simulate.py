@@ -351,6 +351,7 @@ def simulate_lsm_convolution(config, psfconfigLR, psfconfigHR=None,
         rperm = range(n_val)
     elif data_mode == 'real':
         file_list = [f for f in glob.glob(config['data_dir'] + "\\*.png")]
+        file_list += [f for f in glob.glob(config['data_dir'] + "\\*.tif")]
         n_images = len(file_list)
         n_val = n_images  # config['n_val_real']
         rperm = np.random.permutation(n_images)
