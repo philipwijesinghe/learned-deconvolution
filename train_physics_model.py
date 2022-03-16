@@ -21,8 +21,7 @@ import yaml
 # USER INPUT
 # =============================================================================
 networkdir = [
-    r'E:\\LSM-deeplearning\\TrainedModels\\20210323_Speckle\\20210323_Airy_1_BlastocystNS_l30_b1e-4',
-    r'E:\\LSM-deeplearning\\TrainedModels\\20210323_Speckle\\20210323_Gauss_100_BlastocystNS_l30_b1e-4'
+    r'G:\LSM-deeplearning\_DataUnderpinning\ExampleAiry1\UntrainedModel'
 ]
 
 

@@ -18,10 +18,10 @@ from deeplearn.inference import process_widefield_stack
 # USER INPUT
 # =============================================================================
 model_dir = [
-    r'E:\LSM-deeplearning\TrainedModels\20210323_Speckle\20210323_Airy_1_BlastocystNS_l30_b1e-4'
+    r'G:\LSM-deeplearning\_DataUnderpinning\ExampleAiry1\TrainedModel'
 ]
 in_dirs = [
-    r'E:\LSM-deeplearning\20201008_BlastocystJC1_Processed\BlastocystJC1\150Radius-200exposure-0.5step-100mW-alpha1_1\Process-20201015-stack-p999pc'
+    r'G:\LSM-deeplearning\_DataUnderpinning\ExampleAiry1\ExperimentalData'
 ]
 
 
