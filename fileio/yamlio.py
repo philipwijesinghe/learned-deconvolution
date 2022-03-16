@@ -97,7 +97,7 @@ class TrainingConfig:
 
         # Special case for x Pi
         if 'theta' in yaml_raw:
-            self.config['theta'] = eval(yaml_raw['theta']) * np.pi
+            self.config['theta'] = eval(str(yaml_raw['theta'])) * np.pi
 
 
 # =============================================================================

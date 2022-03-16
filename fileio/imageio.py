@@ -12,6 +12,9 @@ functions for manipulating image files for deep learning
 #
 # Copyright (c) 2020 Philip Wijesinghe@University of St Andrews (pw64@st-andrews.ac.uk)
 
+import glob
+import numpy as np
+from skimage import io
 from PIL import Image
 
 
@@ -47,3 +50,27 @@ def save_image(datadir, date, image_no, imageLR_xz, imageHR_xz=None, mode='train
         print("Incorrect mode")
 
     return
+
+
+def load_img_stack(folder, image_nos=0):
+    """ Load an image stack from a folder """
+
+    print(folder)
+    if folder[-3:] == 'tif':
+        img_stack = io.imread(folder)
+        return img_stack
+
+    files = glob.glob(folder + '/*.png')
+    files += glob.glob(folder + '/*.tif')
+
+    if image_nos == 0:
+        image_nos = np.arange(len(files))
+
+    img = io.imread(files[0])
+    img_size = img.shape
+    img_stack = np.zeros([len(image_nos), img_size[0], img_size[1]]).astype(img.dtype)
+
+    for i, v in enumerate(image_nos):
+        img_stack[i, :, :] = io.imread(files[v])
+        
+    return img_stack
