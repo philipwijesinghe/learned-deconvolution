@@ -21,39 +21,46 @@
 #   each other
 #   If more than one processing run is to be performed in one day, append 
 #   an index to the end (e.g., 20200310_1, 20200310_2, etc)
-date: 20200113
+date: 
 
 # Processing chain
 #   Generate data based on real or simulated data
 
 # Use real or simulated data for pair training
-data: sim # sim or real or both
-data_dir:  # dir of real reference data (if needed)
+data: sim # sim or real or both (sim, real)
+data_dir:  # dir of real reference data (if real specified adove)
 
 # Configure LSM PSF for low and high resolution
-# Parameters are based on the supporting pdfs in the beams/ directory 
+# Parameters are based on the supporting PSFs in the beams/ directory 
 psfconfigLR:
   illumination:
     beam: airy  # gaussian, airy, bessel
-    w0: 1.53e-3
+    lambda: 488e-9  # wavelength in m
+    w0: 1.53e-3  # waist size at back focal plane
     gamma: 1  # alpha parameter for airy
     f: 13e-3 # focal length
     # rr: 1.1e-3  # ring radius for bessel
   detection:
     wg: 2.1e-6 # spot size at focus
 
+# Experimental PSFs can be used instead
+# Replace psfconfigLR: section with that commented below
+# psfconfigLR:
+#   experimental:
+#     dir: F:\Third-party\LatticeLSM\Lattice-images-and-PSFs\PSF\PSF1.tif  # the path to an image file of a PSF (must be same pixel size as network inputs)
+
 psfconfigHR:
   illumination:
     beam: gaussian
-    wg: 1.3e-6
+    wg: 1.3e-6  # spot size at focus
   detection:
-    wg: 1.3e-6  
+    wg: 1.3e-6  # spot size at focus
 
 # Psf rotation angle (factor of PI)
-theta: -1/4
+theta: -1/4  # pi
 
-# Image properties
-img_size_xz: [64, 64]  # image size in pixels
+# Simulated image properties
+img_size_xz: [64, 64]  # simulated image size in pixels (WARNING: Training only supports [64, 64] sizes at the moment)
 pix_spacing: 0.85e-6  # image pixel size in m
 
 # Simulation properties

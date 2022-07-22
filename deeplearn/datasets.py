@@ -189,7 +189,7 @@ class ImageDatasetWidefieldStitch(Dataset):
         self.img_size = img_size
         self.margin = margin
         # self.files = sorted(glob.glob(os.path.join(root, 'process') + "/*.*"))
-        self.files = sorted(glob.glob(root + "/*.png*"))
+        self.files = sorted(glob.glob(root + "/*.png"))
 
         img = Image.open(self.files[0 % len(self.files)]).convert('L')
         self.w, self.h = img.size
@@ -217,7 +217,7 @@ class ImageDatasetWidefieldStitch(Dataset):
         # plt.imshow(img)
 
         # Tensor [C, H, W]
-        img = self.transform(img)
+        img = self.transform(img)  # .point(lambda i: i * 1.5)
 
         # pad image tensor to a multiple of img_size
         img.unsqueeze_(0)

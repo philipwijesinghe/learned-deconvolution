@@ -1,0 +1,8 @@
+pillow
+matplotlib
+pyyaml
+scipy
+scikit-image
+joblib
+yaml
+imageio

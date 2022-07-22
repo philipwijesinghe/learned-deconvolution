@@ -13,6 +13,9 @@
 import os
 import numpy as np
 import sys
+
+from fileio.yamlio import load_config
+
 sys.path.append('../')
 
 import torch
@@ -32,7 +35,7 @@ from deeplearn.datasets import Image, ImageDatasetWidefieldStitch
 # =============================================================================
 # Process a stack of widefield images with a trained network
 # =============================================================================
-def process_widefield_stack(in_dir, model_dir, conf):
+def process_widefield_stack(in_dir, model_dir, out_dir=None):
     """
     Process a stack of widefield images with a trained network
 
@@ -58,10 +61,21 @@ def process_widefield_stack(in_dir, model_dir, conf):
     # =============================================================================
     # Main
     # =============================================================================
+    tmp, _, _ = load_config(model_dir + '/TrainConfig.yml')
+    conf = dl.Config()
+    conf.overwrite_defaults(tmp)
+
     parent_dir = os.path.split(in_dir)[0]
-    save_dir = os.path.join(parent_dir, "Processed")
+    if out_dir is None:
+        save_dir = os.path.join(parent_dir, "Processed")
+    elif os.path.isabs(out_dir):
+        save_dir = out_dir
+    else:
+        save_dir = os.path.join(in_dir + '-' + out_dir)
+
     os.makedirs(save_dir, exist_ok=True)
 
+    # conf.n_epochs = 201
     generator_dir = os.path.join(
         model_dir,
         'saved_models',

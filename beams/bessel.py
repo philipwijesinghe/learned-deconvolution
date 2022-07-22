@@ -76,7 +76,7 @@ def gen_bessel(r, z, lambda0=488e-9, **kwargs):
         wg = 2 * f / (w0 * k)
         kr = rr * k / f
     else:
-        print('Not enough input options. Define either wg,ke or f,rr,w0')
+        print('Not enough input options. Define either wg,kr or f,rr,w0')
         return 0
 
     # Derived parameters

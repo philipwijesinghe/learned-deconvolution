@@ -22,13 +22,8 @@ import yaml
 # =============================================================================
 # Folder with TrainConfig.yml
 networkdir = [
-    'E:\\LSM-deeplearning\\TrainedModels\\20210222_PureSimBeams\\20210222_Airy_g0p5_l30',
-    'E:\\LSM-deeplearning\\TrainedModels\\20210222_PureSimBeams\\20210222_Airy_g1_l30',
-    'E:\\LSM-deeplearning\\TrainedModels\\20210222_PureSimBeams\\20210222_Airy_g2_l30',
-    'E:\\LSM-deeplearning\\TrainedModels\\20210222_PureSimBeams\\20210222_Bessel_rr0p8_n5',
-    'E:\\LSM-deeplearning\\TrainedModels\\20210222_PureSimBeams\\20210222_Bessel_rr1p1_n5',
-    'E:\\LSM-deeplearning\\TrainedModels\\20210222_PureSimBeams\\20210222_Gauss_100_l30',
-    'E:\\LSM-deeplearning\\TrainedModels\\20210222_PureSimBeams\\20210222_Gauss_50_l30'
+    r'E:\DataUnderpinning\ExampleAiry1\UntrainedModel',
+    # r'E:\DataUnderpinning\ExampleAiry1\AnotherModel'
 ]
 
 
@@ -45,6 +40,7 @@ for dir_ in networkdir:
     conf = dl.Config()
     conf.overwrite_defaults(config)
 
+    # Save configuration dict in yml for this run
     with open(dir_ + '//TrainRun.yml', 'w') as file:
         yaml.dump(conf, file)
 

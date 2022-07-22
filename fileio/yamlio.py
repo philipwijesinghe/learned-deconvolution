@@ -114,7 +114,7 @@ def _read_yaml(yamlpath):
     return config_raw
 
 
-def is_number(s):
+def _is_number(s):
     try:
         float(s)
         return True
@@ -125,29 +125,36 @@ def is_number(s):
 def _psf_parser(psfconfig, config_raw, config_name='psfconfig'):
     # copy configuration keys
     if config_name in config_raw:
+        if 'experimental' in config_raw[config_name]:
+            conf_ = config_raw[config_name]['experimental']
+            for key in conf_:
+                psfconfig.config['experimental'][key] = \
+                    float(conf_[key]) if _is_number(conf_[key]) \
+                    else conf_[key]
+
         if 'illumination' in config_raw[config_name]:
             conf_ = config_raw[config_name]['illumination']
             for key in conf_:
                 psfconfig.config['illumination'][key] = \
-                    float(conf_[key]) if is_number(conf_[key]) \
+                    float(conf_[key]) if _is_number(conf_[key]) \
                     else conf_[key]
 
         if 'detection' in config_raw[config_name]:
             conf_ = config_raw[config_name]['detection']
             for key in conf_:
                 psfconfig.config['detection'][key] = \
-                    float(conf_[key]) if is_number(conf_[key]) \
+                    float(conf_[key]) if _is_number(conf_[key]) \
                     else conf_[key]
 
 
 def _parse_config(config_raw):
     # Low resolution PSF
-    psfconfigLR = PSFConfig()
-    _psf_parser(psfconfigLR, config_raw, config_name='psfconfigLR')
+    psfconfig_lr = PSFConfig()
+    _psf_parser(psfconfig_lr, config_raw, config_name='psfconfigLR')
 
     # High resolution PSF
-    psfconfigHR = PSFConfig()
-    _psf_parser(psfconfigHR, config_raw, config_name='psfconfigHR')
+    psfconfig_hr = PSFConfig()
+    _psf_parser(psfconfig_hr, config_raw, config_name='psfconfigHR')
 
     # Removing psfconfigs
     if 'psfconfigLR' in config_raw:
@@ -160,30 +167,30 @@ def _parse_config(config_raw):
     trainconfig.write_yaml(config_raw)
     config = trainconfig.config
 
-    return config, psfconfigLR, psfconfigHR
+    return config, psfconfig_lr, psfconfig_hr
 
 
 def load_config(yamlpath):
     config_raw = _read_yaml(yamlpath)
 
-    config, psfconfigLR, psfconfigHR = _parse_config(config_raw)
+    config, psfconfig_lr, psfconfig_hr = _parse_config(config_raw)
 
     config['dir'] = os.path.dirname(os.path.abspath(yamlpath))
 
-    return config, psfconfigLR, psfconfigHR
+    return config, psfconfig_lr, psfconfig_hr
 
 
-# =============================================================================
-# MAIN
-# =============================================================================
-if __name__ == "__main__":
-    # Run this section as a script, while making all defined functions
-    # available to the module
-
-    # NOTE: uses parent modules
-    # from beam import    will not work unless modules are loaded or the module
-    # is run as a script with the '-m' modifier
-
-    # load default configuration
-    config, psfconfigLR, psfconfigHR = \
-        load_config(r"F:\Work\Projects\deep-learning\deep-learning-lsm\config_templates\TrainConfig.yml")
+# # =============================================================================
+# # MAIN
+# # =============================================================================
+# if __name__ == "__main__":
+#     # Run this section as a script, while making all defined functions
+#     # available to the module
+#
+#     # NOTE: uses parent modules
+#     # from beam import    will not work unless modules are loaded or the module
+#     # is run as a script with the '-m' modifier
+#
+#     # load default configuration
+#     config, psfconfigLR, psfconfigHR = \
+#         load_config(r"F:\Work\Projects\deep-learning\deep-learning-lsm\config_templates\TrainConfig.yml")

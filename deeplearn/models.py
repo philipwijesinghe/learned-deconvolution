@@ -14,6 +14,8 @@ import torch.nn as nn
 import torch
 from torch.nn.utils import spectral_norm
 
+# __all__ = ['GeneratorResNet', 'GeneratorUNet64US']
+
 
 # =============================================================================
 # MODELS

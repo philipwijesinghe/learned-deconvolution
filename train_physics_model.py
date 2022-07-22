@@ -21,7 +21,8 @@ import yaml
 # USER INPUT
 # =============================================================================
 networkdir = [
-    r'G:\LSM-deeplearning\_DataUnderpinning\ExampleAiry1\UntrainedModel'
+    r'E:\DataUnderpinning\ExampleAiry1\UntrainedModel',
+    # r'E:\DataUnderpinning\ExampleAiry1\AnotherModel'
 ]
 
 
@@ -29,7 +30,7 @@ networkdir = [
 # MAIN
 # =============================================================================
 for dir_ in networkdir:
-    config, psfconfigLR, psfconfigHR = load_config(dir_ + '/TrainConfig.yml')
+    config, psfconfig_lr, psfconfig_hr = load_config(dir_ + '/TrainConfig.yml')
 
     # Prepare data for training
     prepare_training_data(dir_, overwrite=False)

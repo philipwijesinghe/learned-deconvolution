@@ -22,6 +22,23 @@ from PIL import Image
 # FUNCTIONS
 # =============================================================================
 def save_image(datadir, date, image_no, imageLR_xz, imageHR_xz=None, mode='train'):
+    """Helper function for saving images for deep learning
+
+    Note: many modes here have been superseded and are not used
+
+    Parameters
+    ----------
+    datadir
+    date
+    image_no
+    imageLR_xz
+    imageHR_xz
+    mode
+
+    Returns
+    -------
+
+    """
     img_size_xz = imageLR_xz.shape
     # Note: PIL Image operates in 'zx' coordinates
     if mode == 'paired':
@@ -53,8 +70,20 @@ def save_image(datadir, date, image_no, imageLR_xz, imageHR_xz=None, mode='train
 
 
 def load_img_stack(folder, image_nos=0):
-    """ Load an image stack from a folder """
+    """Loads image sequence in folder as a numpy image stack
 
+    Parameters
+    ----------
+    folder
+        directory containing png or tiff images
+    image_nos
+        if 0, loads all images; if a list, loads specified images (by index)
+
+    Returns
+    -------
+    numpy array of size [i, x, y], where i is image index
+
+    """
     print(folder)
     if folder[-3:] == 'tif':
         img_stack = io.imread(folder)
