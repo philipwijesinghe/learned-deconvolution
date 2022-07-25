@@ -334,7 +334,7 @@ def simulate_lsm_beads(config, psfconfig_lr, psfconfig_hr, parallel=True):
     psf_lr, psf_hr = gen_psf(config, psfconfig_lr, psfconfig_hr)
 
     # If an experimental psf is used, then use convolution for LR image simulation
-    experimental = True if psfconfig_hr.config['experimental']['dir'] else False
+    experimental = True if psfconfig_lr.config['experimental']['dir'] else False
 
     # for ni in range(sim_conf['n_images']):
     def sim_single(ni):
