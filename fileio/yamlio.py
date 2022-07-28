@@ -38,7 +38,8 @@ class TrainingConfig:
             'pix_spacing': 0.85e-6,
             'n_val_real': 6,
             'sim': {
-                'type': 'bead',
+                'type': 'bead, speckle',
+                'sparsity_split': 0.5,
                 'n_images': 8,
                 'n_val': 2,
                 'n_scatterers_min_max': (5, 40),

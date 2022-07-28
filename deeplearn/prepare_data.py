@@ -108,7 +108,7 @@ def prepare_training_data(datadir, overwrite=True, **kwargs):
         files = [f for f in files if f.endswith(".png")]
 
         n_images = len(files)
-        img_shuffle = np.random.permutation(n_images)
+        img_shuffle = np.random.permutation(n_images) + n_offset
 
         for i, v in enumerate(files):
             img_name = ('%05i.png' % img_shuffle[i])

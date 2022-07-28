@@ -327,6 +327,11 @@ def simulate_lsm_beads(config, psfconfig_lr, psfconfig_hr, parallel=True):
     noise_conf = config['noise']
     fov_xz = np.array(config['img_size_xz']) * config['pix_spacing']
 
+    if 'speckle' in sim_conf['type']:
+        n_simulations = int(sim_conf['n_images'] * sim_conf['sparsity_split'])
+    else:
+        n_simulations = int(sim_conf['n_images'])
+
     # Image coordinates
     x = np.linspace(0, fov_xz[0], config['img_size_xz'][0])
     z = np.linspace(0, fov_xz[1], config['img_size_xz'][1])
@@ -395,10 +400,10 @@ def simulate_lsm_beads(config, psfconfig_lr, psfconfig_hr, parallel=True):
         save_image(config['dir'], None, last_n + 1 + ni,
                    imageLR_xz=image_lr, imageHR_xz=image_hr, mode='paired')
 
-        print("Generated %i of %i images" % (ni + 1, sim_conf['n_images']))
+        print("Generated %i of %i images" % (ni + 1, n_simulations))
 
     if parallel:
-        Parallel(n_jobs=4)(delayed(sim_single)(ni) for ni in range(sim_conf['n_images']))
+        Parallel(n_jobs=4)(delayed(sim_single)(ni) for ni in range(n_simulations))
     else:
         for ni in range(sim_conf['n_images']):
             sim_single(ni)
@@ -426,11 +431,13 @@ def simulate_lsm_speckle(config, psfconfig_lr, psfconfig_hr):
     sim_conf = config['sim']
     noise_conf = config['noise']
 
-    n_images = sim_conf['n_images']
-    n_val = sim_conf['n_val']
+    if 'bead' in sim_conf['type']:
+        n_simulations = int(sim_conf['n_images']) - int(sim_conf['n_images'] * sim_conf['sparsity_split'])
+    else:
+        n_simulations = int(sim_conf['n_images'])
 
     psf_lr, psf_hr = gen_psf(config, psfconfig_lr, psfconfig_hr)
-    for ni in range(n_images):
+    for ni in range(n_simulations):
         # Create LR and HR images via convolution
         xv = np.linspace(-config['img_size_xz'][0],
                          config['img_size_xz'][0],
@@ -458,7 +465,7 @@ def simulate_lsm_speckle(config, psfconfig_lr, psfconfig_hr):
         save_image(config['dir'], None, last_n + 1 + ni,
                    imageLR_xz=image_lr, imageHR_xz=image_hr, mode='paired')
 
-        print("Generated %i of %i images" % (ni + 1, n_images))
+        print("Generated %i of %i images" % (ni + 1, n_simulations))
 
 
 def simulate_lsm_real(config, psfconfig_lr):
@@ -484,9 +491,9 @@ def simulate_lsm_real(config, psfconfig_lr):
     file_list = [f for f in glob.glob(config['data_dir'] + "\\*.png")]
     file_list += [f for f in glob.glob(config['data_dir'] + "\\*.tif")]
     n_images = len(file_list)
-    n_val = config['n_val_real']
-    rperm = np.random.permutation(n_images)
-    rperm = rperm[:n_val]
+    # n_val = config['n_val_real']
+    # rperm = np.random.permutation(n_images)
+    # rperm = rperm[:n_val]
 
     psf_lr, _ = gen_psf(config, psfconfig_lr)
 

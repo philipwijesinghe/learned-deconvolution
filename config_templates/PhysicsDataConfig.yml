@@ -66,10 +66,11 @@ pix_spacing: 0.85e-6  # image pixel size in m
 # Simulation properties
 sim:
   type: bead, speckle  # bead, speckle
-  n_images: 512  # number of images to simulate
+  sparsity_split: 0.5  # in [0, 1]; split between bead and speckle. Higher values increase sparsity.
+  n_images: 1024  # number of images to simulate
   n_val: 64  # number of images to use for validation
   n_scatterers_min_max: [5, 40]  # range of number of scatteres to simulate for sparse images
-  # max distance where PSF contributes to signal (Smaller = faster code)
+  # max distance from scatterer where PSF still contributes to signal (Smaller = faster code)
   psfDistMaxLR: 25e-6
   psfDistMaxHR: 10e-6
   # speckle properties
