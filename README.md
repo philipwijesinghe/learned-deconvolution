@@ -7,7 +7,7 @@ This work was first presented in:
 
 *Wijesinghe P., Corsetti S., Chow D.J.X., Sakata S., Dunning K.R., Dholakia K.* 
 **Experimentally unsupervised deconvolution for light-sheet microscopy with propagation-invariant beams** 
-(PREPRINT) 2022 [https://doi.org/10.1101/2021.05.26.445797](https://doi.org/10.1101/2021.05.26.445797)
+Light Sci Appl 11, 319 (2022). [https://doi.org/10.1038/s41377-022-00975-6](https://doi.org/10.1038/s41377-022-00975-6)
 
 ### Changes
 ```
